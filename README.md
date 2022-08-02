@@ -7,8 +7,9 @@ Consider this shapechecked implementation of a `remove_last` function:
 ``` julia
 using ShapeCheck
 
-@shapechecked function remove_last(x :: AbstractVector[n]) :: AbstractVector[n-1]
-	x[1:end-1]
+const AV = AbstractVector 
+@shapechecked function remove_last(x :: AV[n]) :: AV[n-1]
+    x[1:end-1]
 end
 ```
 
@@ -32,8 +33,8 @@ Stacktrace:
 ```
 Without the shapecheck, this function would have silently returned just `[:d]`. Instead, what we should have written is
 ``` julia
-@shapechecked function remove_last(x :: AbstractVector[n]) :: AbstractVector[n-1]
-	x[begin:end-1]
+@shapechecked function remove_last(x :: AV[n]) :: AV[n-1]
+    x[begin:end-1]
 end
 ```
 if we want to be able to handle general `AbstractVector`s correctly. 
