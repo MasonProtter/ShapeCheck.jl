@@ -1,6 +1,6 @@
 # ShapeCheck.jl
 
-This provides a nice(?) syntax for **runtime** shape checking of function outputs given their inputs. This should work for any type `T` which has methods for `size(::T, n)`. The shapes being checked here in this package can *not* be dispatched on. 
+This provides a nice(?) syntax for **runtime** shape checking of function outputs given their inputs. This should work for any type `T` which has methods for `size(::T, n)`. The shapes being checked here in this package can *not* be dispatched on. Inspired by https://github.com/google/jaxtyping
 
 
 Consider this shapechecked implementation of a `remove_last` function: 
