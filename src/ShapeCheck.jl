@@ -28,7 +28,7 @@ macro shapechecked(fdef)
         $(Expr(:block, shape_decls...))
         # Doing this in a `call(...)` block in order to capture any possible early `return`s. I re-provide the arguments
         # instead of closing over them because of https://github.com/JuliaLang/julia/issues/15276
-        $result = $call(($(arg_names...),; $(kwargs_with_default...),) -> $(d[:body]), $(arg_names...); $(kwarg_names...))
+        $result = $call(($(arg_names...),; $(kwarg_names...),) -> $(d[:body]), $(arg_names...); $(kwargs_with_default...))
         $shape_asserts
         $result
     end
