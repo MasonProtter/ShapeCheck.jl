@@ -56,5 +56,4 @@ end
         a
     end
     @test h(rand(1000), 2) == 1000
-    
 end

@@ -13,6 +13,7 @@ macro shapechecked(fdef)
 
     new_args, arg_names, shape_decls, shape_names = extract_shape_info(d[:args])
     new_kwargs, kwarg_names, _, _ = extract_shape_info!(d[:kwargs], shape_decls, shape_names)
+    kwargs_with_default = map(name -> Expr(:kw, name, name), kwarg_names)
     @gensym result
     
     shape_asserts, new_rtype = @match d[:rtype] begin
@@ -27,7 +28,7 @@ macro shapechecked(fdef)
         $(Expr(:block, shape_decls...))
         # Doing this in a `call(...)` block in order to capture any possible early `return`s. I re-provide the arguments
         # instead of closing over them because of https://github.com/JuliaLang/julia/issues/15276
-        $result = $call(($(arg_names...),; $(kwarg_names...),) -> $(d[:body]), $(arg_names...); $(kwarg_names...))
+        $result = $call(($(arg_names...),; $(kwargs_with_default...),) -> $(d[:body]), $(arg_names...); $(kwarg_names...))
         $shape_asserts
         $result
     end
