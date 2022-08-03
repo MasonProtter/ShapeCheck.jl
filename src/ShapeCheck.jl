@@ -19,8 +19,7 @@ macro shapechecked(fdef)
         :($T[$(out_shapes...)]) => (Expr(:block,
                                          (:($size($result, $i) == $shape
                                             || $throw($DimensionMismatch(
-                                                "Dimension $($i) of result does not match $($(string(shape))) \
-= $(string($shape)), got $($size($result, $i)).")))
+                                                "Dimension $($i) of result does not match $($(string(shape))) = $(string($shape)), got $($size($result, $i)).")))
                                           for (i, shape) ∈ enumerate(out_shapes) if shape != :_)...), T)
         T => (nothing, T)
     end
